@@ -39,7 +39,7 @@ namespace NBug.Core.UI.Developer
 				viewer = new InternalLogViewer();
 				handleCreated = new ManualResetEvent(false);
 				viewer.HandleCreated += (sender, e) => handleCreated.Set();
-				Task.Factory.StartNew(() => Application.Run(viewer));
+				Task.Run(() => Application.Run(viewer));
 				handleCreated.WaitOne();
 			}
 		}
