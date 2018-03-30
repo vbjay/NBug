@@ -35,10 +35,12 @@ namespace NBug.Core.Submission
 				if (isAsynchronous)
 				{
 					// Log and swallow NBug's internal exceptions by default
-					Task.Factory.StartNew(this.Dispatch)
-					    .ContinueWith(
-						    t => Logger.Error("An exception occurred while dispatching bug report. Check the inner exception for details", t.Exception),
-						    TaskContinuationOptions.OnlyOnFaulted);
+					Task.Run(() => this.Dispatch())
+						.ContinueWith(
+							t => Logger.Error("An exception occurred while dispatching bug report. Check the inner exception for details", t.Exception),
+							CancellationToken.None,
+							TaskContinuationOptions.OnlyOnFaulted,
+							TaskScheduler.Default);
 				}
 				else
 				{
