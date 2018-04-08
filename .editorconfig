@@ -4,6 +4,9 @@
 root = true
 
 ; Tab indentation (no size specified)
-[*]
+[*.cs]
 indent_style = tab
-trim_trailing_whitespace = true
+
+[*.{csproj,props,targets}]
+indent_style = space
+indent_size = 2
