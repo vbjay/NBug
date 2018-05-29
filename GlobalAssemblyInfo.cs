@@ -4,7 +4,6 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using System;
 using System.Reflection;
 
 // General Information about an assembly is controlled through the following
@@ -21,17 +20,6 @@ using System.Reflection;
 [assembly: AssemblyConfiguration("Release")]
 #endif
 
-/*
- * Basic rules to become CLS compilant is below:
- * 1. Unsigned types should not be part of the public interface of the class. What this means is public fields should not
- * have unsigned types like uint or ulong, public methods should not return unsigned types, parameters passed to public
- * function should not have unsigned types. However unsigned types can be part of private members.
- * 2. Unsafe types like pointers should not be used with public members. However they can be used with private members.
- * 3. Class names and member names should not differ only based on their case. For example we cannot have two methods
- * named MyMethod and MYMETHOD.
- * 4. Only properties and methods may be overloaded, Operators should not be overloaded.
-*/
-[assembly: CLSCompliant(true)]
 
 // Version information for an assembly consists of the following four values:
 //      Major Version

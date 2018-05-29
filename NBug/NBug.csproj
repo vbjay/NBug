@@ -56,9 +56,13 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="JetBrains.Annotations" Version="11.1.0" />
     <PackageReference Include="Microsoft.VisualStudio.Threading" Version="15.6.46" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\..\GitExtUtils\GitUI\DpiUtil.cs">
+      <Link>Core\Util\DpiUtil.cs</Link>
+    </Compile>
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
