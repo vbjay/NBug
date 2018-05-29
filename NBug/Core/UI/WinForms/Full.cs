@@ -4,6 +4,8 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using GitExtUtils.GitUI;
+
 namespace NBug.Core.UI.WinForms
 {
 	using System;
@@ -39,6 +41,12 @@ namespace NBug.Core.UI.WinForms
 		internal UIDialogResult ShowDialog(SerializableException exception, Report report)
 		{
 			this.Text = string.Format("{0} {1}", report.GeneralInfo.HostApplication, Settings.Resources.UI_Dialog_Full_Title);
+
+			// Scaling
+			this.sendAndQuitButton.Image = DpiUtil.Scale(Resources.Send);
+			this.exceptionTypeLabel.Image = DpiUtil.Scale(Resources.NBug_Icon_PNG_16);
+			this.exceptionDetails.InformationColumnWidth = DpiUtil.Scale(350);
+			this.exceptionDetails.PropertyColumnWidth = DpiUtil.Scale(101);
 
 			// Fill in the 'General' tab
 			this.warningPictureBox.Image = SystemIcons.Warning.ToBitmap();
