@@ -12,6 +12,7 @@ namespace NBug.Core.Submission
 	using System.Threading.Tasks;
 	using System.Xml.Serialization;
 
+	using Microsoft.VisualStudio.Threading;
 	using NBug.Core.Reporting.Info;
 	using NBug.Core.Util.Logging;
 	using NBug.Core.Util.Serialization;
@@ -40,7 +41,8 @@ namespace NBug.Core.Submission
 							t => Logger.Error("An exception occurred while dispatching bug report. Check the inner exception for details", t.Exception),
 							CancellationToken.None,
 							TaskContinuationOptions.OnlyOnFaulted,
-							TaskScheduler.Default);
+							TaskScheduler.Default)
+						.Forget();
 				}
 				else
 				{
