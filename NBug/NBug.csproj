@@ -57,7 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="11.1.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Threading" Version="15.6.46" />
+    <PackageReference Include="Microsoft.VisualStudio.Threading" Version="15.8.132" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\..\GitExtUtils\GitUI\DpiUtil.cs">
