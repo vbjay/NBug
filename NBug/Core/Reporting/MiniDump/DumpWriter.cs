@@ -120,7 +120,6 @@ namespace NBug.Core.Reporting.MiniDump
 			MiniDumpExceptionInformation exp;
 			exp.ThreadId = GetCurrentThreadId();
 			exp.ClientPointers = false;
-			exp.ExceptionPointers = IntPtr.Zero;
 			exp.ExceptionPointers = Marshal.GetExceptionPointers();
 
 			var bRet = false;
