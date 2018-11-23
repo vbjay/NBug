@@ -10,7 +10,7 @@ using System.Reflection;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("NBug")]
+[assembly: AssemblyProduct("GitExtensions")]
 [assembly: AssemblyCopyright("Copyright © 2013 Teoman Soygul")]
 [assembly: AssemblyTrademark("")]
 #if DEBUG
