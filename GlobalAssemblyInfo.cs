@@ -11,7 +11,6 @@ using System.Reflection;
 // associated with an assembly.
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("GitExtensions")]
-[assembly: AssemblyCopyright("Copyright © 2013 Teoman Soygul")]
 [assembly: AssemblyTrademark("")]
 #if DEBUG
 
