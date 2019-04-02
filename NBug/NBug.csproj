@@ -311,5 +311,18 @@
       <DependentUpon>Normal.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\CopyToClipboard.png" />
+    <None Include="resources\Error_16.png" />
+    <None Include="resources\Feedback.png" />
+    <None Include="resources\Forum_16.png" />
+    <None Include="resources\Help_16.png" />
+    <None Include="resources\icon.ico" />
+    <None Include="resources\NBug_icon_16.ico" />
+    <None Include="resources\NBug_icon_16_borders.ico" />
+    <None Include="resources\NBug_Icon_PNG_16.png" />
+    <None Include="resources\Send.png" />
+    <None Include="resources\VS2010_16.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
