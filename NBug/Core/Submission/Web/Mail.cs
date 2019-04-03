@@ -175,7 +175,7 @@ namespace NBug.Core.Submission.Web
 				else
 				{
 					message.Subject = "NBug: " + report.GeneralInfo.HostApplication + " (" + report.GeneralInfo.HostApplicationVersion + "): "
-					                  + report.GeneralInfo.ExceptionType + " @ " + report.GeneralInfo.TargetSite;
+									  + report.GeneralInfo.ExceptionType + " @ " + report.GeneralInfo.TargetSite;
 				}
 
 				if (!string.IsNullOrEmpty(this.CustomBody))
@@ -184,7 +184,7 @@ namespace NBug.Core.Submission.Web
 				}
 				else
 				{
-					message.Body = report + Environment.NewLine + Environment.NewLine + exception;
+					message.Body = report + Environment.NewLine + Environment.NewLine + exception.ToXmlString();
 				}
 
 				smtpClient.Send(message);

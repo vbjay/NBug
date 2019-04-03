@@ -129,9 +129,9 @@ namespace NBug.Core.Submission.Tracker
 			 * </issue>
 			 */
 			var subject = "NBug: " + report.GeneralInfo.HostApplication + " (" + report.GeneralInfo.HostApplicationVersion + "): "
-			              + report.GeneralInfo.ExceptionType + " @ " + report.GeneralInfo.TargetSite;
+						  + report.GeneralInfo.ExceptionType + " @ " + report.GeneralInfo.TargetSite;
 
-			var description = "<pre>" + report + Environment.NewLine + Environment.NewLine + exception + "</pre>";
+			var description = "<pre>" + report + Environment.NewLine + Environment.NewLine + exception.ToXmlString() + "</pre>";
 
 			var redmineRequestXml = new XElement("issue", new XElement("project_id", this.ProjectId));
 
