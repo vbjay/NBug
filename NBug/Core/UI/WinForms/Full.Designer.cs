@@ -63,7 +63,6 @@
             this.descriptionColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.sizeColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.sendAndQuitButton = new System.Windows.Forms.Button();
             this.mainTabs.SuspendLayout();
             this.generalTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.warningPictureBox)).BeginInit();
@@ -81,12 +80,11 @@
             this.mainTabs.Margin = new System.Windows.Forms.Padding(0);
             this.mainTabs.Name = "mainTabs";
             this.mainTabs.SelectedIndex = 0;
-            this.mainTabs.Size = new System.Drawing.Size(471, 376);
+            this.mainTabs.Size = new System.Drawing.Size(471, 378);
             this.mainTabs.TabIndex = 0;
             // 
             // generalTabPage
             // 
-            this.generalTabPage.Controls.Add(this.sendAndQuitButton);
             this.generalTabPage.Controls.Add(this.quitButton);
             this.generalTabPage.Controls.Add(this.warningLabel);
             this.generalTabPage.Controls.Add(this.exceptionTypeLabel);
@@ -108,18 +106,19 @@
             this.generalTabPage.Location = new System.Drawing.Point(4, 22);
             this.generalTabPage.Name = "generalTabPage";
             this.generalTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.generalTabPage.Size = new System.Drawing.Size(463, 350);
+            this.generalTabPage.Size = new System.Drawing.Size(463, 352);
             this.generalTabPage.TabIndex = 0;
             this.generalTabPage.Text = "General";
             this.generalTabPage.UseVisualStyleBackColor = true;
             // 
             // quitButton
             // 
+            this.quitButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.quitButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.quitButton.Location = new System.Drawing.Point(267, 324);
+            this.quitButton.Location = new System.Drawing.Point(377, 320);
             this.quitButton.Name = "quitButton";
             this.quitButton.Size = new System.Drawing.Size(75, 22);
-            this.quitButton.TabIndex = 2;
+            this.quitButton.TabIndex = 17;
             this.quitButton.Text = "&Quit";
             this.quitButton.UseVisualStyleBackColor = true;
             this.quitButton.Click += new System.EventHandler(this.QuitButton_Click);
@@ -129,7 +128,7 @@
             this.warningLabel.Location = new System.Drawing.Point(64, 12);
             this.warningLabel.Name = "warningLabel";
             this.warningLabel.Size = new System.Drawing.Size(388, 42);
-            this.warningLabel.TabIndex = 18;
+            this.warningLabel.TabIndex = 0;
             this.warningLabel.Text = resources.GetString("warningLabel.Text");
             // 
             // exceptionTypeLabel
@@ -139,7 +138,7 @@
             this.exceptionTypeLabel.Location = new System.Drawing.Point(21, 66);
             this.exceptionTypeLabel.Name = "exceptionTypeLabel";
             this.exceptionTypeLabel.Size = new System.Drawing.Size(106, 16);
-            this.exceptionTypeLabel.TabIndex = 17;
+            this.exceptionTypeLabel.TabIndex = 1;
             this.exceptionTypeLabel.Text = "Exception Type:";
             this.exceptionTypeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -284,7 +283,7 @@
             this.exceptionTabPage.Location = new System.Drawing.Point(4, 22);
             this.exceptionTabPage.Name = "exceptionTabPage";
             this.exceptionTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.exceptionTabPage.Size = new System.Drawing.Size(463, 350);
+            this.exceptionTabPage.Size = new System.Drawing.Size(463, 352);
             this.exceptionTabPage.TabIndex = 2;
             this.exceptionTabPage.Text = "Exception";
             this.exceptionTabPage.UseVisualStyleBackColor = true;
@@ -297,7 +296,7 @@
             this.exceptionDetails.Margin = new System.Windows.Forms.Padding(6);
             this.exceptionDetails.Name = "exceptionDetails";
             this.exceptionDetails.PropertyColumnWidth = 101;
-            this.exceptionDetails.Size = new System.Drawing.Size(457, 344);
+            this.exceptionDetails.Size = new System.Drawing.Size(457, 346);
             this.exceptionDetails.TabIndex = 0;
             // 
             // reportContentsTabPage
@@ -309,11 +308,10 @@
             this.reportContentsTabPage.Location = new System.Drawing.Point(4, 22);
             this.reportContentsTabPage.Name = "reportContentsTabPage";
             this.reportContentsTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.reportContentsTabPage.Size = new System.Drawing.Size(463, 350);
+            this.reportContentsTabPage.Size = new System.Drawing.Size(463, 352);
             this.reportContentsTabPage.TabIndex = 3;
             this.reportContentsTabPage.Text = "Report Contents";
             this.reportContentsTabPage.UseVisualStyleBackColor = true;
-            this.reportContentsTabPage.Enter += new System.EventHandler(this.ReportContentsTabPage_Enter);
             // 
             // reportPreviewTextBox
             // 
@@ -380,25 +378,12 @@
             this.toolTip.UseAnimation = false;
             this.toolTip.UseFading = false;
             // 
-            // sendAndQuitButton
-            // 
-            this.sendAndQuitButton.Image = global::NBug.Properties.Resources.Send;
-            this.sendAndQuitButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.sendAndQuitButton.Location = new System.Drawing.Point(348, 324);
-            this.sendAndQuitButton.Name = "sendAndQuitButton";
-            this.sendAndQuitButton.Size = new System.Drawing.Size(102, 22);
-            this.sendAndQuitButton.TabIndex = 1;
-            this.sendAndQuitButton.Text = "&Send and Quit";
-            this.sendAndQuitButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.sendAndQuitButton.UseVisualStyleBackColor = true;
-            this.sendAndQuitButton.Click += new System.EventHandler(this.SendAndQuitButton_Click);
-            // 
             // Full
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.quitButton;
-            this.ClientSize = new System.Drawing.Size(483, 388);
+            this.ClientSize = new System.Drawing.Size(483, 390);
             this.Controls.Add(this.mainTabs);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -453,6 +438,5 @@
 		private System.Windows.Forms.ToolTip toolTip;
 		private System.Windows.Forms.Label warningLabel;
 		private ExceptionDetails exceptionDetails;
-		private System.Windows.Forms.Button sendAndQuitButton;
 	}
 }
