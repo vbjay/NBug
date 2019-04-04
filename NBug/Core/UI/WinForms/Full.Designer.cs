@@ -35,6 +35,7 @@
             this.mainTabs = new System.Windows.Forms.TabControl();
             this.generalTabPage = new System.Windows.Forms.TabPage();
             this.quitButton = new System.Windows.Forms.Button();
+            this.btnCopy = new System.Windows.Forms.Button();
             this.warningLabel = new System.Windows.Forms.Label();
             this.exceptionTypeLabel = new System.Windows.Forms.Label();
             this.exceptionTextBox = new System.Windows.Forms.TextBox();
@@ -86,6 +87,7 @@
             // generalTabPage
             // 
             this.generalTabPage.Controls.Add(this.quitButton);
+            this.generalTabPage.Controls.Add(this.btnCopy);
             this.generalTabPage.Controls.Add(this.warningLabel);
             this.generalTabPage.Controls.Add(this.exceptionTypeLabel);
             this.generalTabPage.Controls.Add(this.exceptionTextBox);
@@ -115,13 +117,25 @@
             // 
             this.quitButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.quitButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.quitButton.Location = new System.Drawing.Point(377, 320);
+            this.quitButton.Location = new System.Drawing.Point(376, 324);
             this.quitButton.Name = "quitButton";
             this.quitButton.Size = new System.Drawing.Size(75, 22);
             this.quitButton.TabIndex = 17;
             this.quitButton.Text = "&Quit";
             this.quitButton.UseVisualStyleBackColor = true;
             this.quitButton.Click += new System.EventHandler(this.QuitButton_Click);
+            // 
+            // btnCopy
+            // 
+            this.btnCopy.Image = global::NBug.Properties.Resources.CopyToClipboard;
+            this.btnCopy.Location = new System.Drawing.Point(13, 322);
+            this.btnCopy.Name = "btnCopy";
+            this.btnCopy.Size = new System.Drawing.Size(75, 24);
+            this.btnCopy.TabIndex = 16;
+            this.btnCopy.Text = "&Copy";
+            this.btnCopy.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnCopy.UseVisualStyleBackColor = true;
+            this.btnCopy.Click += new System.EventHandler(this.btnCopy_Click);
             // 
             // warningLabel
             // 
@@ -410,6 +424,7 @@
 		private System.Windows.Forms.TabControl mainTabs;
 		private System.Windows.Forms.TabPage generalTabPage;
 		private System.Windows.Forms.Button quitButton;
+		private System.Windows.Forms.Button btnCopy;
 		private System.Windows.Forms.TabPage exceptionTabPage;
 		private System.Windows.Forms.PictureBox warningPictureBox;
 		private System.Windows.Forms.TextBox exceptionMessageTextBox;

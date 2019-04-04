@@ -42,6 +42,7 @@ namespace NBug.Core.UI.WinForms
 			this.Text = string.Format("{0} {1}", report.GeneralInfo.HostApplication, Settings.Resources.UI_Dialog_Full_Title);
 
 			// Scaling
+			this.btnCopy.Image = DpiUtil.Scale(Resources.CopyToClipboard);
 			this.exceptionTypeLabel.Image = DpiUtil.Scale(Resources.NBug_Icon_PNG_16);
 			this.exceptionDetails.InformationColumnWidth = DpiUtil.Scale(350);
 			this.exceptionDetails.PropertyColumnWidth = DpiUtil.Scale(101);
@@ -71,6 +72,11 @@ namespace NBug.Core.UI.WinForms
 		{
 			this.uiDialogResult = new UIDialogResult(ExecutionFlow.BreakExecution, SendReport.DoNotSend);
 			this.Close();
+		}
+
+		private void btnCopy_Click(object sender, EventArgs e)
+		{
+			// TODO
 		}
 	}
 }
