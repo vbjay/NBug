@@ -20,61 +20,61 @@ namespace NBug.Core.UI.WinForms
 {
 	internal partial class Full : Form
 	{
-		private UIDialogResult uiDialogResult;
+		private UIDialogResult _uiDialogResult;
 		private SerializableException _lastException;
 
 		internal Full()
 		{
-			this.InitializeComponent();
-			this.Icon = Resources.NBug_icon_16;
-			this.warningLabel.Text = Settings.Resources.UI_Dialog_Full_Message;
-			this.generalTabPage.Text = Settings.Resources.UI_Dialog_Full_General_Tab;
-			this.exceptionTabPage.Text = Settings.Resources.UI_Dialog_Full_Exception_Tab;
-			this.reportContentsTabPage.Text = Settings.Resources.UI_Dialog_Full_Report_Contents_Tab;
-			this.errorDescriptionLabel.Text = Settings.Resources.UI_Dialog_Full_How_to_Reproduce_the_Error_Notification;
-			this.quitButton.Text = Settings.Resources.UI_Dialog_Full_Quit_Button;
+			InitializeComponent();
+			Icon = Resources.NBug_icon_16;
+			warningLabel.Text = Settings.Resources.UI_Dialog_Full_Message;
+			generalTabPage.Text = Settings.Resources.UI_Dialog_Full_General_Tab;
+			exceptionTabPage.Text = Settings.Resources.UI_Dialog_Full_Exception_Tab;
+			reportContentsTabPage.Text = Settings.Resources.UI_Dialog_Full_Report_Contents_Tab;
+			errorDescriptionLabel.Text = Settings.Resources.UI_Dialog_Full_How_to_Reproduce_the_Error_Notification;
+			quitButton.Text = Settings.Resources.UI_Dialog_Full_Quit_Button;
 
 			// ToDo: Displaying report contents properly requires some more work.
-			this.mainTabs.TabPages.Remove(this.mainTabs.TabPages["reportContentsTabPage"]);
+			mainTabs.TabPages.Remove(mainTabs.TabPages["reportContentsTabPage"]);
 		}
 
 		internal UIDialogResult ShowDialog(SerializableException exception, Report report)
 		{
-			this.Text = string.Format("{0} {1}", report.GeneralInfo.HostApplication, Settings.Resources.UI_Dialog_Full_Title);
+			Text = string.Format("{0} {1}", report.GeneralInfo.HostApplication, Settings.Resources.UI_Dialog_Full_Title);
 
 			_lastException = exception;
 
 			// Scaling
-			this.btnCopy.Image = DpiUtil.Scale(Resources.CopyToClipboard);
-			this.exceptionTypeLabel.Image = DpiUtil.Scale(Resources.NBug_Icon_PNG_16);
-			this.exceptionDetails.InformationColumnWidth = DpiUtil.Scale(350);
-			this.exceptionDetails.PropertyColumnWidth = DpiUtil.Scale(101);
+			btnCopy.Image = DpiUtil.Scale(Resources.CopyToClipboard);
+			exceptionTypeLabel.Image = DpiUtil.Scale(Resources.NBug_Icon_PNG_16);
+			exceptionDetails.InformationColumnWidth = DpiUtil.Scale(350);
+			exceptionDetails.PropertyColumnWidth = DpiUtil.Scale(101);
 
 			// Fill in the 'General' tab
-			this.warningPictureBox.Image = SystemIcons.Warning.ToBitmap();
-			this.exceptionTextBox.Text = exception.Type;
-			this.exceptionMessageTextBox.Text = exception.Message;
-			this.targetSiteTextBox.Text = exception.TargetSite;
-			this.applicationTextBox.Text = report.GeneralInfo.HostApplication + " [" + report.GeneralInfo.HostApplicationVersion + "]";
-			this.nbugTextBox.Text = report.GeneralInfo.NBugVersion;
-			this.dateTimeTextBox.Text = report.GeneralInfo.DateTime;
-			this.clrTextBox.Text = report.GeneralInfo.CLRVersion;
+			warningPictureBox.Image = SystemIcons.Warning.ToBitmap();
+			exceptionTextBox.Text = exception.Type;
+			exceptionMessageTextBox.Text = exception.Message;
+			targetSiteTextBox.Text = exception.TargetSite;
+			applicationTextBox.Text = $@"{report.GeneralInfo.HostApplication} [{report.GeneralInfo.HostApplicationVersion}]";
+			nbugTextBox.Text = report.GeneralInfo.NBugVersion;
+			dateTimeTextBox.Text = report.GeneralInfo.DateTime;
+			clrTextBox.Text = report.GeneralInfo.CLRVersion;
 
 			// Fill in the 'Exception' tab
-			this.exceptionDetails.Initialize(exception);
+			exceptionDetails.Initialize(exception);
 
 			// ToDo: Fill in the 'Report Contents' tab);
-			this.ShowDialog();
+			ShowDialog();
 
 			// Write back the user description (as we passed 'report' as a reference since it is a refence object anyway)
-			report.GeneralInfo.UserDescription = this.descriptionTextBox.Text;
-			return new UIDialogResult(ExecutionFlow.BreakExecution, SendReport.DoNotSend);
+			report.GeneralInfo.UserDescription = descriptionTextBox.Text;
+			return _uiDialogResult;
 		}
 
 		private void QuitButton_Click(object sender, EventArgs e)
 		{
-			this.uiDialogResult = new UIDialogResult(ExecutionFlow.BreakExecution, SendReport.DoNotSend);
-			this.Close();
+			_uiDialogResult = new UIDialogResult(ExecutionFlow.BreakExecution, SendReport.DoNotSend);
+			Close();
 		}
 
 		private void btnCopy_Click(object sender, EventArgs e)
@@ -110,7 +110,7 @@ namespace NBug.Core.UI.WinForms
 				}
 				else
 				{
-					sb.AppendLine($"System information is not supplied");
+					sb.AppendLine("System information is not supplied");
 				}
 			}
 			catch (Exception ex)
