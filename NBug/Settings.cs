@@ -58,12 +58,12 @@ namespace NBug
 					var type = typeof(IProtocolFactory);
 					return
 						AppDomain.CurrentDomain.GetAssemblies()
-						         .SelectMany(s => s.GetTypes())
-						         .Where(type.IsAssignableFrom)
-						         .Where(t => t.IsClass)
-						         .Where(t => !t.IsAbstract)
-						         .Select(t => (IProtocolFactory)Activator.CreateInstance(t))
-						         .ToDictionary(f => f.SupportedType);
+								 .SelectMany(s => s.GetTypes())
+								 .Where(type.IsAssignableFrom)
+								 .Where(t => t.IsClass)
+								 .Where(t => !t.IsAbstract)
+								 .Select(t => (IProtocolFactory)Activator.CreateInstance(t))
+								 .ToDictionary(f => f.SupportedType);
 				});
 
 		private static readonly ICollection<IProtocol> destinations = new Collection<IProtocol>();
@@ -76,7 +76,7 @@ namespace NBug
 			Resources = new PublicResources();
 			EntryAssembly = (Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly()) ?? Assembly.GetCallingAssembly();
 
-				// GetEntryAssembly() is null if there is no initial GUI/CLI
+			// GetEntryAssembly() is null if there is no initial GUI/CLI
 			NBugDirectory = Path.GetDirectoryName(Assembly.GetCallingAssembly().Location) ?? Environment.CurrentDirectory;
 			AdditionalReportFiles = new List<string>();
 
@@ -96,7 +96,7 @@ namespace NBug
 				var path2 = Path.Combine(NBugDirectory, "NBug.dll.config");
 
 				/*string path3; // This is automatically handled by System.Configuration*/
-                if (File.Exists(path1) && new FileInfo(path1).Length > 0) //check if file is empty to avoid false exceptions
+				if (File.Exists(path1) && new FileInfo(path1).Length > 0) //check if file is empty to avoid false exceptions
 				{
 					try
 					{
@@ -110,7 +110,7 @@ namespace NBug
 						Logger.Error("Default configuration file was either corrupt or empty. Loading default app.config settings. File location: " + path1, exception);
 					}
 				}
-                else if (File.Exists(path2) && new FileInfo(path2).Length > 0) //check if file is empty to avoid false exceptions
+				else if (File.Exists(path2) && new FileInfo(path2).Length > 0) //check if file is empty to avoid false exceptions
 				{
 					try
 					{
@@ -212,6 +212,8 @@ namespace NBug
 		/// Gets or sets a list of additional files to be added to the report zip. The files can use * or ? in the same way as DOS modifiers.
 		/// </summary>
 		public static List<string> AdditionalReportFiles { get; set; }
+
+		public static Func<string> GetSystemInfo { get; set; }
 
 		public static ICollection<IProtocol> Destinations
 		{
@@ -467,8 +469,8 @@ namespace NBug
 			if (config.XPathSelectElement("system.diagnostics") != null && config.XPathSelectElement("system.diagnostics/sharedListeners") != null)
 			{
 				var traceLog = from networkTrace in config.XPathSelectElements("system.diagnostics/sharedListeners/add")
-				               where networkTrace.Attribute("initializeData") != null && networkTrace.Attribute("initializeData").Value == "NBug.Network.log"
-				               select networkTrace;
+							   where networkTrace.Attribute("initializeData") != null && networkTrace.Attribute("initializeData").Value == "NBug.Network.log"
+							   select networkTrace;
 
 				if (traceLog.Count() != 0)
 				{
@@ -478,8 +480,8 @@ namespace NBug
 
 			// Read application settings
 			var applicationSettings = from element in config.Elements("applicationSettings").Elements("NBug.Properties.Settings").Elements("setting")
-			                          where element.Attribute("name") != null && element.Element("value") != null
-			                          select element;
+									  where element.Attribute("name") != null && element.Element("value") != null
+									  select element;
 
 			foreach (var applicationSetting in applicationSettings)
 			{
@@ -545,8 +547,8 @@ namespace NBug
 
 			// Read connection strings
 			var connectionStrings = from element in config.Elements("connectionStrings").Elements("add")
-			                        where element.Attribute("name") != null && element.Attribute("connectionString") != null
-			                        select element;
+									where element.Attribute("name") != null && element.Attribute("connectionString") != null
+									select element;
 
 			foreach (var connectionString in connectionStrings)
 			{
@@ -614,28 +616,28 @@ namespace NBug
 				else
 				{
 					var sectionGroup = from setting in config.Root.Element("configSections").Elements()
-					                   where setting.Attribute("name") != null && setting.Attribute("name").Value == "applicationSettings"
-					                   select setting;
+									   where setting.Attribute("name") != null && setting.Attribute("name").Value == "applicationSettings"
+									   select setting;
 
 					if (sectionGroup.Count() == 0)
 					{
 						config.Root.Element("configSections")
-						      .Add(
-							      XElement.Parse(
-								      "<sectionGroup name=\"applicationSettings\" type=\"System.Configuration.ApplicationSettingsGroup, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089\" ><section name=\"NBug.Properties.Settings\" type=\"System.Configuration.ClientSettingsSection, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089\" requirePermission=\"false\" /></sectionGroup>"));
+							  .Add(
+								  XElement.Parse(
+									  "<sectionGroup name=\"applicationSettings\" type=\"System.Configuration.ApplicationSettingsGroup, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089\" ><section name=\"NBug.Properties.Settings\" type=\"System.Configuration.ClientSettingsSection, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089\" requirePermission=\"false\" /></sectionGroup>"));
 					}
 					else
 					{
 						var nbugSection = from section in sectionGroup.Elements()
-						                  where section.Attribute("name") != null && section.Attribute("name").Value == "NBug.Properties.Settings"
-						                  select section;
+										  where section.Attribute("name") != null && section.Attribute("name").Value == "NBug.Properties.Settings"
+										  select section;
 
 						if (nbugSection.Count() == 0)
 						{
 							sectionGroup.First()
-							            .Add(
-								            XElement.Parse(
-									            "<section name=\"NBug.Properties.Settings\" type=\"System.Configuration.ClientSettingsSection, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089\" requirePermission=\"false\" />"));
+										.Add(
+											XElement.Parse(
+												"<section name=\"NBug.Properties.Settings\" type=\"System.Configuration.ClientSettingsSection, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089\" requirePermission=\"false\" />"));
 						}
 					}
 				}
@@ -680,8 +682,8 @@ namespace NBug
 			// Replace connection strings
 			var prefix = "NBug.Properties.Settings.";
 			var connectionStrings = from connString in config.Root.Element("connectionStrings").Elements()
-			                        where connString.Attribute("name") != null && connString.Attribute("name").Value.StartsWith(prefix)
-			                        select connString;
+									where connString.Attribute("name") != null && connString.Attribute("name").Value.StartsWith(prefix)
+									select connString;
 			connectionStrings.Remove();
 
 			if (encryptConnectionStrings)
@@ -692,11 +694,11 @@ namespace NBug
 				}
 
 				config.Root.Element("connectionStrings")
-				      .Add(
-					      new XElement(
-						      "add",
-						      new XAttribute("name", "NBug.Properties.Settings." + GetPropertyName(() => Cipher)),
-						      new XAttribute("connectionString", Convert.ToBase64String(Cipher))));
+					  .Add(
+						  new XElement(
+							  "add",
+							  new XAttribute("name", "NBug.Properties.Settings." + GetPropertyName(() => Cipher)),
+							  new XAttribute("connectionString", Convert.ToBase64String(Cipher))));
 			}
 			else
 			{
@@ -713,21 +715,21 @@ namespace NBug
 			// Replace application setting
 			// ToDo: This can be simplified using a loop and reflection to get all the Settings.PublicProperties to do remove-add cycle
 			var applicationSettings = from appSetting in config.Root.Element("applicationSettings").Element("NBug.Properties.Settings").Elements()
-			                          where
-				                          appSetting.Attribute("name") != null
-				                          && (appSetting.Attribute("name").Value == GetPropertyName(() => UIMode)
-				                              || appSetting.Attribute("name").Value == GetPropertyName(() => UIProvider)
-				                              || appSetting.Attribute("name").Value == GetPropertyName(() => SleepBeforeSend)
-				                              || appSetting.Attribute("name").Value == GetPropertyName(() => MaxQueuedReports)
-				                              || appSetting.Attribute("name").Value == GetPropertyName(() => StopReportingAfter)
-				                              || appSetting.Attribute("name").Value == GetPropertyName(() => StoragePath)
-				                              || appSetting.Attribute("name").Value == GetPropertyName(() => MiniDumpType)
-				                              || appSetting.Attribute("name").Value == GetPropertyName(() => WriteLogToDisk)
-				                              || appSetting.Attribute("name").Value == GetPropertyName(() => ExitApplicationImmediately)
-				                              || appSetting.Attribute("name").Value == GetPropertyName(() => HandleProcessCorruptedStateExceptions)
-				                              || appSetting.Attribute("name").Value == GetPropertyName(() => ReleaseMode)
-				                              || appSetting.Attribute("name").Value == GetPropertyName(() => DeferredReporting))
-			                          select appSetting;
+									  where
+										  appSetting.Attribute("name") != null
+										  && (appSetting.Attribute("name").Value == GetPropertyName(() => UIMode)
+											  || appSetting.Attribute("name").Value == GetPropertyName(() => UIProvider)
+											  || appSetting.Attribute("name").Value == GetPropertyName(() => SleepBeforeSend)
+											  || appSetting.Attribute("name").Value == GetPropertyName(() => MaxQueuedReports)
+											  || appSetting.Attribute("name").Value == GetPropertyName(() => StopReportingAfter)
+											  || appSetting.Attribute("name").Value == GetPropertyName(() => StoragePath)
+											  || appSetting.Attribute("name").Value == GetPropertyName(() => MiniDumpType)
+											  || appSetting.Attribute("name").Value == GetPropertyName(() => WriteLogToDisk)
+											  || appSetting.Attribute("name").Value == GetPropertyName(() => ExitApplicationImmediately)
+											  || appSetting.Attribute("name").Value == GetPropertyName(() => HandleProcessCorruptedStateExceptions)
+											  || appSetting.Attribute("name").Value == GetPropertyName(() => ReleaseMode)
+											  || appSetting.Attribute("name").Value == GetPropertyName(() => DeferredReporting))
+									  select appSetting;
 			applicationSettings.Remove();
 
 			AddApplicationSetting(config, UIMode, () => UIMode);
@@ -760,13 +762,13 @@ namespace NBug
 		private static void AddApplicationSetting<T>(XDocument document, object content, Expression<Func<T>> propertyExpression)
 		{
 			document.Root.Element("applicationSettings")
-			        .Element("NBug.Properties.Settings")
-			        .Add(
-				        new XElement(
-					        "setting",
-					        new XAttribute("name", GetPropertyName(propertyExpression)),
-					        new XAttribute("serializeAs", "String"),
-					        new XElement("value", content)));
+					.Element("NBug.Properties.Settings")
+					.Add(
+						new XElement(
+							"setting",
+							new XAttribute("name", GetPropertyName(propertyExpression)),
+							new XAttribute("serializeAs", "String"),
+							new XElement("value", content)));
 		}
 
 		private static void AddConnectionString(XDocument document, string content, int number)
@@ -774,9 +776,9 @@ namespace NBug
 			if (!string.IsNullOrEmpty(content))
 			{
 				document.Root.Element("connectionStrings")
-				        .Add(
-					        new XElement(
-						        "add", new XAttribute("name", "NBug.Properties.Settings.Connection" + number), new XAttribute("connectionString", Encrypt(content))));
+						.Add(
+							new XElement(
+								"add", new XAttribute("name", "NBug.Properties.Settings.Connection" + number), new XAttribute("connectionString", Encrypt(content))));
 			}
 		}
 
@@ -890,7 +892,7 @@ namespace NBug
 		{
 			var defaultSetting =
 				typeof(Properties.Settings).GetProperty(((MemberExpression)propertyExpression.Body).Member.Name)
-				                           .GetCustomAttributes(typeof(DefaultSettingValueAttribute), false)[0] as DefaultSettingValueAttribute;
+										   .GetCustomAttributes(typeof(DefaultSettingValueAttribute), false)[0] as DefaultSettingValueAttribute;
 			return defaultSetting != null ? defaultSetting.Value : null;
 		}
 
