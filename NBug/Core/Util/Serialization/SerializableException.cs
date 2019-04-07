@@ -29,13 +29,11 @@ namespace NBug.Core.Util.Serialization
 
 		public SerializableException(Exception exception)
 		{
-			if (exception == null)
-			{
-				throw new ArgumentNullException();
-			}
+			OriginalException = exception ?? throw new ArgumentNullException();
 
 			var oldCulture = Thread.CurrentThread.CurrentCulture;
 			var oldUICulture = Thread.CurrentThread.CurrentUICulture;
+
 			try
 			{
 				// Prefer messages in English, instead of in language of the user.
@@ -122,6 +120,8 @@ namespace NBug.Core.Util.Serialization
 
 		public string Message { get; set; }
 
+		public Exception OriginalException { get; }
+
 		public string Source { get; set; }
 
 		public string StackTrace { get; set; }
@@ -133,6 +133,11 @@ namespace NBug.Core.Util.Serialization
 		public string Type { get; set; }
 
 		public override string ToString()
+		{
+			return OriginalException.ToString();
+		}
+
+		public string ToXmlString()
 		{
 			var serializer = new XmlSerializer(typeof(SerializableException));
 			using (var stream = new MemoryStream())
