@@ -67,6 +67,8 @@
     <Compile Include="Core\Submission\IProtocol.cs" />
     <Compile Include="Core\Submission\IProtocolFactory.cs" />
     <Compile Include="Core\Submission\Tracker\BugNet.cs" />
+    <Compile Include="Core\Util\ErrorReportMarkDownBodyBuilder.cs" />
+    <Compile Include="Core\Util\GitHubUrlBuilder.cs" />
     <Compile Include="Core\Submission\Tracker\Mantis\AccountData.cs" />
     <Compile Include="Core\Submission\Tracker\Mantis\AttachmentData.cs" />
     <Compile Include="Core\Submission\Tracker\Mantis\CustomFieldValueForIssueData.cs" />

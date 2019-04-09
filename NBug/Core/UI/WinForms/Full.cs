@@ -8,11 +8,12 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
+using System.Diagnostics;
 using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 using GitExtUtils.GitUI;
 using NBug.Core.Reporting.Info;
+using NBug.Core.Util;
 using NBug.Core.Util.Serialization;
 using NBug.Properties;
 
@@ -20,8 +21,16 @@ namespace NBug.Core.UI.WinForms
 {
 	internal partial class Full : Form
 	{
+		private static readonly IErrorReportMarkDownBodyBuilder ErrorReportBodyBuilder;
+		private static readonly GitHubUrlBuilder UrlBuilder;
 		private UIDialogResult _uiDialogResult;
 		private SerializableException _lastException;
+
+		static Full()
+		{
+			ErrorReportBodyBuilder = new ErrorReportMarkDownBodyBuilder();
+			UrlBuilder = new GitHubUrlBuilder(ErrorReportBodyBuilder);
+		}
 
 		internal Full()
 		{
@@ -33,6 +42,7 @@ namespace NBug.Core.UI.WinForms
 			reportContentsTabPage.Text = Settings.Resources.UI_Dialog_Full_Report_Contents_Tab;
 			errorDescriptionLabel.Text = Settings.Resources.UI_Dialog_Full_How_to_Reproduce_the_Error_Notification;
 			quitButton.Text = Settings.Resources.UI_Dialog_Full_Quit_Button;
+			sendAndQuitButton.Text = Settings.Resources.UI_Dialog_Full_Send_and_Quit_Button;
 
 			// ToDo: Displaying report contents properly requires some more work.
 			mainTabs.TabPages.Remove(mainTabs.TabPages["reportContentsTabPage"]);
@@ -45,6 +55,7 @@ namespace NBug.Core.UI.WinForms
 			_lastException = exception;
 
 			// Scaling
+			sendAndQuitButton.Image = DpiUtil.Scale(Resources.Send);
 			btnCopy.Image = DpiUtil.Scale(Resources.CopyToClipboard);
 			exceptionTypeLabel.Image = DpiUtil.Scale(Resources.NBug_Icon_PNG_16);
 			exceptionDetails.InformationColumnWidth = DpiUtil.Scale(350);
@@ -66,7 +77,7 @@ namespace NBug.Core.UI.WinForms
 			// ToDo: Fill in the 'Report Contents' tab);
 			ShowDialog();
 
-			// Write back the user description (as we passed 'report' as a reference since it is a refence object anyway)
+			// Write back the user description (as we passed 'report' as a reference since it is a reference object anyway)
 			report.GeneralInfo.UserDescription = descriptionTextBox.Text;
 			return _uiDialogResult;
 		}
@@ -77,52 +88,24 @@ namespace NBug.Core.UI.WinForms
 			Close();
 		}
 
+		private void SendAndQuitButton_Click(object sender, EventArgs e)
+		{
+			string url = UrlBuilder.Build("https://github.com/gitextensions/gitextensions/issues/new", _lastException.OriginalException, descriptionTextBox.Text);
+			Process.Start(url);
+
+			_uiDialogResult = new UIDialogResult(ExecutionFlow.BreakExecution, SendReport.DoNotSend);
+			Close();
+		}
+
 		private void btnCopy_Click(object sender, EventArgs e)
 		{
-			StringBuilder sb = new StringBuilder();
-
-			sb.AppendLine("## Current behaviour");
-			sb.AppendLine();
-			sb.AppendLine("```");
-			sb.AppendLine(_lastException.OriginalException.ToString());
-			sb.AppendLine("```");
-			sb.AppendLine();
-			sb.AppendLine();
-
-			if (!string.IsNullOrWhiteSpace(descriptionTextBox.Text))
+			var report = ErrorReportBodyBuilder.Build(_lastException.OriginalException, descriptionTextBox.Text);
+			if (string.IsNullOrWhiteSpace(report))
 			{
-				sb.AppendLine("## Additional information");
-				sb.AppendLine();
-				sb.AppendLine(descriptionTextBox.Text.Trim());
-				sb.AppendLine();
-				sb.AppendLine();
+				return;
 			}
 
-			try
-			{
-				sb.AppendLine("## Environment");
-				sb.AppendLine();
-
-				var systemInfo = Settings.GetSystemInfo?.Invoke();
-				if (!string.IsNullOrWhiteSpace(systemInfo))
-				{
-					sb.AppendLine(systemInfo);
-				}
-				else
-				{
-					sb.AppendLine("System information is not supplied");
-				}
-			}
-			catch (Exception ex)
-			{
-				sb.AppendLine("Failed to retrieve system information.");
-				sb.AppendLine("Exception:");
-				sb.AppendLine("```");
-				sb.AppendLine(ex.ToString());
-				sb.AppendLine("```");
-			}
-
-			Clipboard.SetDataObject(sb.ToString(), true, 5, 100);
+			Clipboard.SetDataObject(report, true, 5, 100);
 		}
 	}
 }

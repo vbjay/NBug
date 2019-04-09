@@ -1,0 +1,40 @@
+﻿<!--
+    :warning: Review existing issues to see whether someone else has already reported your issue.
+-->
+
+## Current behaviour
+
+<!-- Be as specific and detailed as possible to help us identify your issue. -->
+
+
+## Expected behaviour
+
+
+## Steps to reproduce
+
+<!-- Take some time to try and reproduce the issue, then explain how to do so here. -->
+
+
+## Error Details
+```
+System.ApplicationException: Failed ---> System.ArgumentOutOfRangeException: Opps ---> System.DivideByZeroException: Boom!
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at NBug.Tests.Unit.Util.Mock.Method1() in C:\Development\gitextensions\Externals\NBug\NBug.Tests\Unit\Util\Mock.cs:line 13
+   at NBug.Tests.Unit.Util.Mock.Method2() in C:\Development\gitextensions\Externals\NBug\NBug.Tests\Unit\Util\Mock.cs:line 16
+   at NBug.Tests.Unit.Util.Mock.Method3() in C:\Development\gitextensions\Externals\NBug\NBug.Tests\Unit\Util\Mock.cs:line 17
+   at NBug.Tests.Unit.Util.Mock.Method4() in C:\Development\gitextensions\Externals\NBug\NBug.Tests\Unit\Util\Mock.cs:line 18
+   at NBug.Tests.Unit.Util.Mock.DoWork() in C:\Development\gitextensions\Externals\NBug\NBug.Tests\Unit\Util\Mock.cs:line 7
+   at NBug.Tests.Unit.Util.ErrorReportMarkDownBodyBuilderTests.Build_should_build_report_with_system_and_additional_info() in C:\Development\gitextensions\Externals\NBug\NBug.Tests\Unit\Util\ErrorReportMarkDownBodyBuilderTests.cs:line 77
+```
+
+
+## Additional information
+It happened when I was arguing with someone on the Internet.
+I was right and they were absolutely wrong!
+I win! But the app crashed!
+PLEASE HELP!!!
+
+
+## Environment
+System information is not supplied
