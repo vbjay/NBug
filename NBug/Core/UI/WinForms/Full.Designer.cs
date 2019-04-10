@@ -34,6 +34,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Full));
             this.mainTabs = new System.Windows.Forms.TabControl();
             this.generalTabPage = new System.Windows.Forms.TabPage();
+            this.sendAndQuitButton = new System.Windows.Forms.Button();
             this.quitButton = new System.Windows.Forms.Button();
             this.btnCopy = new System.Windows.Forms.Button();
             this.warningLabel = new System.Windows.Forms.Label();
@@ -86,6 +87,7 @@
             // 
             // generalTabPage
             // 
+            this.generalTabPage.Controls.Add(this.sendAndQuitButton);
             this.generalTabPage.Controls.Add(this.quitButton);
             this.generalTabPage.Controls.Add(this.btnCopy);
             this.generalTabPage.Controls.Add(this.warningLabel);
@@ -113,14 +115,26 @@
             this.generalTabPage.Text = "General";
             this.generalTabPage.UseVisualStyleBackColor = true;
             // 
+            // sendAndQuitButton
+            // 
+            this.sendAndQuitButton.Image = global::NBug.Properties.Resources.Send;
+            this.sendAndQuitButton.Location = new System.Drawing.Point(252, 322);
+            this.sendAndQuitButton.Name = "sendAndQuitButton";
+            this.sendAndQuitButton.Size = new System.Drawing.Size(118, 24);
+            this.sendAndQuitButton.TabIndex = 17;
+            this.sendAndQuitButton.Text = "&Send and Quit";
+            this.sendAndQuitButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.sendAndQuitButton.UseVisualStyleBackColor = true;
+            this.sendAndQuitButton.Click += new System.EventHandler(this.SendAndQuitButton_Click);
+            // 
             // quitButton
             // 
             this.quitButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.quitButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.quitButton.Location = new System.Drawing.Point(376, 324);
+            this.quitButton.Location = new System.Drawing.Point(376, 322);
             this.quitButton.Name = "quitButton";
-            this.quitButton.Size = new System.Drawing.Size(75, 22);
-            this.quitButton.TabIndex = 17;
+            this.quitButton.Size = new System.Drawing.Size(75, 24);
+            this.quitButton.TabIndex = 18;
             this.quitButton.Text = "&Quit";
             this.quitButton.UseVisualStyleBackColor = true;
             this.quitButton.Click += new System.EventHandler(this.QuitButton_Click);
@@ -453,5 +467,6 @@
 		private System.Windows.Forms.ToolTip toolTip;
 		private System.Windows.Forms.Label warningLabel;
 		private ExceptionDetails exceptionDetails;
+		private System.Windows.Forms.Button sendAndQuitButton;
 	}
 }

@@ -1,0 +1,1 @@
+﻿http://localhost/issues/new?foo=bar&title=%5BNBug%5D%20BAU-863%20adding%20settings%20and%20organisations%20if%20they%20are%20not%20a...&body=%23%23%20Current%20behaviour

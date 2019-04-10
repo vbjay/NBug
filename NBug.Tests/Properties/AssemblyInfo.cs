@@ -8,6 +8,7 @@
 
 using System.Reflection;
 using System.Runtime.InteropServices;
+using ApprovalTests.Reporters;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
@@ -23,6 +24,9 @@ using System.Runtime.InteropServices;
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("2063af3c-6402-4000-b41e-b0e14cc10ec0")]
+
+[assembly: UseReporter(typeof(NUnitReporter), typeof(AppVeyorReporter), typeof(DiffReporter))]
+
 
 // Version information for an assembly consists of the following four values:
 //      Major Version
