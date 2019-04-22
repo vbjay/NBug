@@ -11,8 +11,7 @@
     <RootNamespace>NBug.Examples.WinForms</RootNamespace>
     <AssemblyName>NBug.Examples.WinForms</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
+    <RuntimeIdentifier>win</RuntimeIdentifier>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>
     </SccProjectName>
